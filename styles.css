@@ -1,0 +1,19 @@
+body {
+  background-color: black;
+}
+
+
+.main-container {
+  background-color: white;
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16,1fr);
+  gap: 2px;
+} 
+
+.grid-item {
+  background-color: gray;
+  border: 1px solid red;
+}
