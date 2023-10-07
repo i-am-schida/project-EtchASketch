@@ -1,27 +1,31 @@
 /* uni */
 body {
-  background-color: white;
+  background-color: rgb(248, 228, 228);
+  font-family: Roboto, sans-serif;
 }
-
 h1 {
   text-align: center;
-  font-size: 50px;
+  font-size: 80px;
+  font-weight: bold;
 }
-
 .box {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
-
 .left {
-  flex: 1;
+  margin-right: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.left button {
+  margin-bottom: 20px;
+}
+.right {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
-
-.right {
-  flex: 2;
-}
-
 /* BUTTONS */
 #reset-button {
   background-color: red;
@@ -35,8 +39,17 @@ h1 {
   padding: 10px 80px;
   border-radius: 10px;
 }
+#color-mode-button {
+  background-color: red;
+  color: white;
+  padding: 10px 80px;
+  border-radius: 10px;
+}
+button {
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+}
 /* whiteboard */
-
 .main-container {
   background-color: white;
   height: 500px;
@@ -44,8 +57,8 @@ h1 {
   display: grid;
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16,1fr);
+  border: 3px solid black;
 } 
-
 .grid-item {
-  background-color: gray;
+  background-color: white;/* background color for individual divs inside main container */
 }
