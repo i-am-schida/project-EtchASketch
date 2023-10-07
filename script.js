@@ -13,11 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentRowSize = 16;
   let currentColSize = 16;
   let isDrawing = false;
+  let isRainbowMode = false;
 
   function toggleDrawingEnabled() {
     isDrawingEnabled = !isDrawingEnabled;
     mainContainer.classList.toggle('drawing-enabled', !isDrawingEnabled);
-    colorModeButton.textContent = isDrawingEnabled ? 'Color Mode' : 'Drawing Disabled';
+    if (isRainbowMode) {
+      colorModeButton.textContent = 'Rainbow Mode';
+    } else {
+      colorModeButton.textContent = 'Color Mode';
+    }
   }
 
   toggleDrawingEnabled(); 
@@ -37,7 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleGridItemClick(event) {
     if (isDrawingEnabled && isDrawing) {
       const gridItem = event.target;
-      gridItem.style.backgroundColor = isErasing ? 'white' : 'black';
+      if (isRainbowMode) {
+        const randomColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+        gridItem.style.backgroundColor = randomColor;
+      } else {
+        gridItem.style.backgroundColor = isErasing ? 'white' : 'black';
+      }
     }
   }
 
@@ -57,6 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   eraserButton.addEventListener('click', function () {
     isErasing = !isErasing;
+  });
+
+  colorModeButton.addEventListener('click', function () {
+    isRainbowMode = !isRainbowMode; // Toggle rainbow mode
+    if (isRainbowMode) {
+      colorModeButton.textContent = 'Rainbow Mode'; // Change button text for rainbow mode
+    } else {
+      colorModeButton.textContent = 'Color Mode';
+    }
   });
 
   rowSizeSlider.addEventListener('input', function () {
