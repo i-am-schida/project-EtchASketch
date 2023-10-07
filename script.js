@@ -3,90 +3,74 @@ document.addEventListener("DOMContentLoaded", function () {
   const resetButton = document.querySelector('#reset-button');
   const eraserButton = document.querySelector('#eraser-button');
   const colorModeButton = document.querySelector('#color-mode-button');
-  let isErasing = false; // eraser mode toggle
-  let isDrawingEnabled = true; // DEFAULTS to this mode
+  const rowSizeSlider = document.querySelector('#row-size');
+  const colSizeSlider = document.querySelector('#col-size');
+  const rowSizeValue = document.querySelector('#row-size-value');
+  const colSizeValue = document.querySelector('#col-size-value');
 
-
-  function toggleDrawingEnabled () {
-    isDrawingEnabled = !isDrawingEnabled;
-    mainContainer.classList.toggle('drawing-enabled', !isDrawingEnabled);
-
-    if (isDrawingEnabled) {
-      colorModeButton.textContent = 'Color Mode';
-    } else {
-      colorModeButton.textContent = 'Drawing Disabled';
-    }
-  }
-
+  let isErasing = false;
+  let isDrawingEnabled = true;
+  let currentRowSize = 16;
+  let currentColSize = 16;
   let isDrawing = false;
 
-  mainContainer.addEventListener('mousedown', function () {
-    isDrawing = isDrawingEnabled; // only enable drawing if it's allowed
-  });
+  function toggleDrawingEnabled() {
+    isDrawingEnabled = !isDrawingEnabled;
+    mainContainer.classList.toggle('drawing-enabled', !isDrawingEnabled);
+    colorModeButton.textContent = isDrawingEnabled ? 'Color Mode' : 'Drawing Disabled';
+  }
 
-  mainContainer.addEventListener('mouseup', function () {
-    isDrawing = false;
-  });
+  toggleDrawingEnabled(); 
+  
+  function createGrid() {
+    mainContainer.innerHTML = '';
+    mainContainer.style.gridTemplateColumns = `repeat(${currentColSize}, 1fr)`;
+    mainContainer.style.gridTemplateRows = `repeat(${currentRowSize}, 1fr)`;
 
-  mainContainer.addEventListener('mouseleave', function () {
-    isDrawing = false;
-  });
-
-  mainContainer.addEventListener('mousemove', function (event) {
-    if (isDrawing) {
-      const gridItem = event.target;
-      if (isErasing) {
-        gridItem.style.backgroundColor = 'white';
-      } else {
-        gridItem.style.backgroundColor = 'black';
-      }
-    }
-});
-
-  colorModeButton.addEventListener('click', function () {
-    toggleDrawingEnabled();
-  });
-
-  // ERASER BUTTON
-  eraserButton.addEventListener('click', function () {
-    isErasing = !isErasing; // toggle eraser mode immediately
-  });
-
-  for (let i = 0; i < 16; i++) { // for looping 'i' for rows, 'j' for columns; 16x16 by default
-    for (let j = 0; j < 16; j++) {
+    for (let i = 0; i < currentRowSize * currentColSize; i++) {
       const gridItem = document.createElement('div');
       gridItem.classList.add('grid-item');
       mainContainer.appendChild(gridItem);
-
-      gridItem.addEventListener('mousedown', function () {
-        if (isDrawingEnabled) {
-          isDrawing = true;
-          const gridItem = event.target;
-          if (isErasing) {
-            gridItem.style.backgroundColor = 'white';
-          } else {
-          gridItem.style.backgroundColor = 'black';
-        }
-      }
-    });
-
-    gridItem.addEventListener('mouseenter', function (event) {
-      if (isErasing && isDrawingEnabled) {
-        const gridItem = event.target;
-        gridItem.style.backgroundColor = 'white';
-      }
-    });
+    }
   }
-}
-  // RESET BUTTON
+
+  function handleGridItemClick(event) {
+    if (isDrawingEnabled && isDrawing) {
+      const gridItem = event.target;
+      gridItem.style.backgroundColor = isErasing ? 'white' : 'black';
+    }
+  }
+
+  mainContainer.addEventListener('mousedown', () => isDrawing = true);
+  mainContainer.addEventListener('mouseup', () => isDrawing = false);
+  mainContainer.addEventListener('mouseleave', () => isDrawing = false);
+  mainContainer.addEventListener('mousemove', handleGridItemClick);
+
   resetButton.addEventListener('click', function () {
     isErasing = false;
     const gridItems = mainContainer.querySelectorAll('.grid-item');
-    gridItems.forEach(function (gridItem) {
-      gridItem.style.backgroundColor = 'white';
-    });
+    gridItems.forEach(gridItem => gridItem.style.backgroundColor = 'white');
     if (!isDrawingEnabled) {
-      toggleDrawingEnabled(); // enable drawing after reset
+      toggleDrawingEnabled();
     }
   });
+
+  eraserButton.addEventListener('click', function () {
+    isErasing = !isErasing;
+  });
+
+  rowSizeSlider.addEventListener('input', function () {
+    currentRowSize = parseInt(rowSizeSlider.value);
+    rowSizeValue.textContent = currentRowSize;
+    createGrid();
+  });
+
+  colSizeSlider.addEventListener('input', function () {
+    currentColSize = parseInt(colSizeSlider.value);
+    colSizeValue.textContent = currentColSize;
+    createGrid();
+  });
+
+  toggleDrawingEnabled();
+  createGrid();
 });
