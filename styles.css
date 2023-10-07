@@ -49,24 +49,17 @@ button {
   width: 100%;
   text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  border: 3px solid transparent;
+  animation: buttonBorder 3s infinite alternate;
 }
-#reset-button {
+#reset-button, #eraser-button, #color-mode-button {
   background-color: transparent;
-  color: black;
-  padding: 10px 80px;
-  border-radius: 10px;
-}
-#eraser-button {
-  background-color: transparent;
-  color: black;
+  color: red; /* BUTTON TEXT COLOR */
   padding: 10px 80px;
   border-radius: 10px;
 }
 #color-mode-button {
-  background-color: transparent;
-  color: black;
-  padding: 10px 80px;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,7 +76,7 @@ button {
   color: white;
   border: 2px solid lime;
 }
-/* whiteboard */
+/* WHITEBOARD */
 .main-container {
   background-color: white;
   height: 500px;
@@ -95,5 +88,80 @@ button {
 } 
 .grid-item {
   flex-grow: 1;
-  background-color: white;/* background color for individual divs inside main container */
+  background-color: white;
+}
+/* COLOR WHEEL */
+.color-wheel-container {
+  width: 200px; 
+  height: 200px; 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.color-wheel {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    red,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    magenta,
+    red
+  );
+  cursor: crosshair;
+}
+.selected-color {
+  margin-top: 10px;
+  width: 150px;
+  height: 10px;
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+/* FOOTER */
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 20px;
+  font-size: 20px;
+  overflow: hidden;
+  border-top: 3px solid transparent;
+  animation: waveBorder 2s linear infinite alternate; /* use keyframe animation */
+}
+.footer a {
+  color: currentColor;
+}
+/* KEYFRAMES */
+@keyframes waveBorder {
+  0% {
+    border-top: 1px solid transparent;
+    transform: translateY(3);
+    color: red;
+  }
+  100% {
+    border-top: 1px solid lime;
+    transform: translateY(-3px);
+    color: rgb(248, 228, 228);
+  }
+}
+@keyframes buttonBorder {
+  0% {
+    border: 1px solid red;
+    color: lime;
+  }
+  100% {
+    border: 1px solid lime;
+    color: red;
+  }
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="jscolor.js"></script> <!-- jscolor -->
     <script src="script.js"></script>
     <title>16x16 Grid with Flexbox</title>
 </head>
@@ -14,26 +15,36 @@
   </h1>
 
   <div class="box">
-    <div class="left">
+    <div class="left"> <!-- left side -->
       <button id="reset-button">Reset</button>
       <button id="eraser-button">Eraser</button>
       <button id="color-mode-button">Color Mode</button>
-    </div>
-    <div class="right">
-      <div class="slider-container"> <!-- row/col slider -->
-          <label for="row-size">Rows:</label>
-          <input type="range" id="row-size" min="1" max="64" value="16" step="1">
-          <span id="row-size-value">16</span>
-          <label for="col-size">Columns:</label>
-          <input type="range" id="col-size" min="1" max="64" value="16" step="1">
-          <span id="col-size-value">16</span>
+      <div class="color-wheel-container">
+        <div class="color-wheel" id="color-wheel"></div>
+        <div class="selected-color" id="selected-color"></div>
       </div>
-      <div class="main-container"> <!-- whiteboard -->
-        <!-- 16x16 default grid ~ JavaScript -->
+    </div>
+    <div class="right"> <!-- right side -->
+      <div class="slider-container">
+          <label for="row-size" style="color: red;">Rows:</label>
+          <input type="range" id="row-size" min="1" max="64" value="16" step="1">
+          <span id="row-size-value" style="color: black; font-weight: bold; font-size: 18px;">16</span>
+          <label for="col-size" style="color: red;">Columns:</label>
+          <input type="range" id="col-size" min="1" max="64" value="16" step="1">
+          <span id="col-size-value" style="color: black; font-weight: bold; font-size: 18px;">16</span>
+      </div>
+      <div class="main-container">
+        <!-- 16x16 initial default grid ~ JavaScript -->
       </div>
     </div>
   </div>
   
+  <footer class="footer">
+        <a href="https://github.com/i-am-schida/project-EtchASketch" style="text-decoration: none;" target="_blank">
+          <span style="font-weight: 100; color: lime;">i-am-schida</span>
+          <span style="font-weight: 100; font-size: 12px;">2023</span>
+        </a>
+  </footer>  
 
 </body>
 </html>
