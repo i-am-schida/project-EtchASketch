@@ -1,7 +1,41 @@
+/* uni */
 body {
-  background-color: black;
+  background-color: white;
 }
 
+h1 {
+  text-align: center;
+  font-size: 50px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  flex: 1;
+  align-items: center;
+}
+
+.right {
+  flex: 2;
+}
+
+/* BUTTONS */
+#reset-button {
+  background-color: red;
+  color: white;
+  padding: 10px 80px;
+  border-radius: 10px;
+}
+#eraser-button {
+  background-color: red;
+  color: white;
+  padding: 10px 80px;
+  border-radius: 10px;
+}
+/* whiteboard */
 
 .main-container {
   background-color: white;
@@ -10,10 +44,8 @@ body {
   display: grid;
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16,1fr);
-  gap: 2px;
 } 
 
 .grid-item {
   background-color: gray;
-  border: 1px solid red;
 }
