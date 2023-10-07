@@ -42,11 +42,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleGridItemClick(event) {
     if (isDrawingEnabled && isDrawing) {
       const gridItem = event.target;
-      if (isRainbowMode) {
-        const randomColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-        gridItem.style.backgroundColor = randomColor;
+      if (isErasing) {
+        gridItem.style.backgroundColor = 'white';
       } else {
-        gridItem.style.backgroundColor = isErasing ? 'white' : 'black';
+        if (isRainbowMode) {
+          const randomColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+          gridItem.style.backgroundColor = randomColor;
+        } else {
+          gridItem.style.backgroundColor = 'black';
+        }
       }
     }
   }
@@ -58,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   resetButton.addEventListener('click', function () {
     isErasing = false;
+    eraserButton.classList.remove('active'); // makes sure to toggle eraser off
     const gridItems = mainContainer.querySelectorAll('.grid-item');
     gridItems.forEach(gridItem => gridItem.style.backgroundColor = 'white');
     if (!isDrawingEnabled) {
@@ -67,14 +72,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   eraserButton.addEventListener('click', function () {
     isErasing = !isErasing;
+
+    if (isErasing) {
+      eraserButton.classList.add('active');
+    } else {
+      eraserButton.classList.remove('active');
+    }
   });
 
   colorModeButton.addEventListener('click', function () {
     isRainbowMode = !isRainbowMode; // Toggle rainbow mode
     if (isRainbowMode) {
       colorModeButton.textContent = 'Rainbow Mode'; // Change button text for rainbow mode
+      colorModeButton.classList.add('rainbow-mode');
     } else {
       colorModeButton.textContent = 'Color Mode';
+      colorModeButton.classList.remove('rainbow-mode');
     }
   });
 

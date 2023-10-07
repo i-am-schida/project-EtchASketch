@@ -38,22 +38,35 @@ h1 {
 }
 /* BUTTONS */
 #reset-button {
-  background-color: red;
-  color: white;
+  background-color: transparent;
+  color: black;
   padding: 10px 80px;
   border-radius: 10px;
 }
 #eraser-button {
-  background-color: red;
-  color: white;
+  background-color: transparent;
+  color: black;
   padding: 10px 80px;
   border-radius: 10px;
 }
-#color-mode-button {
+#reset-button:hover, #eraser-button:hover, #color-mode-button:hover {
+  background-color: lime;
+  color: red;
+  border-color: salmon;
+  font-weight: bold;
+  transition: background-color 0.5s ease, color 0.3s ease, border-color 3s;
+}
+#eraser-button.active {
   background-color: red;
   color: white;
+  border: 2px solid lime;
+}
+#color-mode-button {
+  background-color: transparent;
+  color: black;
   padding: 10px 80px;
   border-radius: 10px;
+  display: block;
 }
 button {
   font-family: Roboto, sans-serif;
